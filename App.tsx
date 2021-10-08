@@ -1,31 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { Button } from 'react-native-paper';
 
 const App = () => {
+  const [counter, setCounter] = useState<number>(0)
   return (
     <SafeAreaView>
-      <StatusBar />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View></View>
-      </ScrollView>
-    </SafeAreaView>
+        <View>
+          <Text>{counter}</Text>
+          <Button mode="contained" onPress={() => setCounter(counter + 1)}>
+            Hi
+          </Button>
+        </View>
+      </ScrollView >
+    </SafeAreaView >
   )
 }
 
