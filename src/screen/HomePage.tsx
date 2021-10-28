@@ -1,12 +1,15 @@
+import { StackScreenProps } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import {
-  SafeAreaView,
+  Button,
   ScrollView,
+  View,
 } from 'react-native'
-import { Appbar } from 'react-native-paper'
 import { MyCard } from '../components/common/MyCard'
 
-export const MainPage = () => {
+type Props = StackScreenProps<any>
+
+export const HomePage = ({ navigation }: Props) => {
   const [posts, setPosts] = useState<any[]>([])
   useEffect(() => {
     setPosts([{
@@ -21,13 +24,14 @@ export const MainPage = () => {
   }, [])
 
   return (
-    <SafeAreaView>
-      {/* <Appbar.Header >
-        <Appbar.Content title="Home" subtitle="bon"></Appbar.Content>
-      </Appbar.Header> */}
+    <View>
       <ScrollView>
-        {posts.map((post) => <MyCard title={post.title} subtitle={post.subtitle} content={post.content} />)}
+        {posts.map((post, i) => <MyCard key={i} title={post.title} subtitle={post.subtitle} content={post.content} />)}
       </ScrollView>
-    </SafeAreaView >
+      <Button
+        title="Go to Profile"
+        onPress={() => navigation.navigate('Profile')}
+      />
+    </View>
   )
 }
