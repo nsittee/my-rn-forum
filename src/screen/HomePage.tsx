@@ -5,12 +5,15 @@ import {
   ScrollView,
   View,
 } from 'react-native'
-import { MyCard } from '../components/common/MyCard'
+import { ThreadCard } from '../components/common/MyCard'
+import appConstant from '../constant/app-constant'
 
 type Props = StackScreenProps<any>
 
 export const HomePage = ({ navigation }: Props) => {
   const [posts, setPosts] = useState<any[]>([])
+  console.log(appConstant);
+
   useEffect(() => {
     setPosts([{
       title: "Hi, I'm new",
@@ -26,7 +29,11 @@ export const HomePage = ({ navigation }: Props) => {
   return (
     <View>
       <ScrollView>
-        {posts.map((post, i) => <MyCard key={i} title={post.title} subtitle={post.subtitle} content={post.content} />)}
+        {
+          posts.map((post, i) => {
+            return <ThreadCard key={i} title={post.title} subtitle={post.subtitle} content={post.content} />
+          })
+        }
       </ScrollView>
       <Button
         title="Go to Profile"

@@ -3,14 +3,15 @@ import { Surface } from 'react-native-paper'
 import { Avatar, Card, Paragraph } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
 
-export const MyCard = (props: any) => {
+export const ThreadCard = (props: any) => {
   return (
     <Surface style={styles.surface}>
       <Card>
         <Card.Title
           title={props.title}
           subtitle={props.subtitle}
-          left={(props: any) => <Avatar.Icon {...props} icon="folder" />} />
+          left={(props: any) => <Avatar.Icon {...props} icon="face-profile" />}
+        />
         <Card.Content>
           {/* <Title>Card title</Title> */}
           <Paragraph>{props.content}</Paragraph>
