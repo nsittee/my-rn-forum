@@ -5,7 +5,7 @@ import {
   ScrollView,
   View,
 } from 'react-native'
-import { ThreadCard } from '../components/common/MyCard'
+import { ThreadCard } from '../components/common/ThreadCard'
 import { myAxios } from '../config/axios-config'
 import appConstant from '../constant/app-constant'
 import { ISub } from '../shared/model/sub.model'
