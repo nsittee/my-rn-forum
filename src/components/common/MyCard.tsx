@@ -1,20 +1,28 @@
-import React from 'react'
-import { Surface } from 'react-native-paper'
+import React, { useState } from 'react'
+import { Surface, Title } from 'react-native-paper'
 import { Avatar, Card, Paragraph } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
+import { IThread } from '../../shared/model/thread.model'
 
 export const ThreadCard = (props: any) => {
+  const [thread, setThread] = useState<IThread>(props.thread)
+
+  const displayVote = thread.Upvote!! - thread.Downvote!!
+  const subAuthor = thread.Author ? thread.Author.Username : 'null'
+  const subParent = thread.SubParent ? thread.SubParent.SubLongName : 'null'
+  const vote = thread.vote
+
   return (
     <Surface style={styles.surface}>
       <Card>
         <Card.Title
-          title={props.title}
-          subtitle={props.subtitle}
-          left={(props: any) => <Avatar.Icon {...props} icon="face-profile" />}
+          title={subParent}
+          subtitle={`posted by ${subAuthor} on ${thread.CreatedDate} `}
+          left={(props: any) => <Avatar.Icon {...props} />}
         />
         <Card.Content>
-          {/* <Title>Card title</Title> */}
-          <Paragraph>{props.content}</Paragraph>
+          <Title>{thread.Title?.substring(0, 36)}</Title>
+          <Paragraph>{thread.Content}</Paragraph>
         </Card.Content>
         {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
       </Card>
