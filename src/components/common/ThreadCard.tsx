@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Surface, Title } from 'react-native-paper'
 import { Avatar, Card, Paragraph } from 'react-native-paper'
-import { StyleSheet } from 'react-native'
+import { GestureResponderEvent, StyleSheet } from 'react-native'
 import { IThread } from '../../shared/model/thread.model'
 
 export const ThreadCard = (props: any) => {
@@ -13,7 +13,9 @@ export const ThreadCard = (props: any) => {
   const vote = thread.vote
 
   return (
-    <Surface style={styles.surface}>
+    <Surface
+      onTouchEnd={props.onTouchThread}
+      style={styles.surface}>
       <Card>
         <Card.Title
           title={subParent}

@@ -2,6 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import {
   Button,
+  GestureResponderEvent,
   ScrollView,
   View,
 } from 'react-native'
@@ -25,12 +26,15 @@ export const HomePage = ({ navigation }: Props) => {
     })
   }, [])
 
+  const onTouchThread = (e: GestureResponderEvent, id: string) => {
+    navigation.navigate('thread', { threadId: id })
+  }
   return (
     <View>
       <ScrollView>
         {
           threads.map(thread => {
-            return <ThreadCard key={thread._id} thread={thread} />
+            return <ThreadCard key={thread._id} thread={thread} onTouchThread={(e: any) => onTouchThread(e, thread._id!!)} />
           })
         }
       </ScrollView>
