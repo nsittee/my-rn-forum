@@ -1,27 +1,22 @@
-import React, { useState } from 'react'
-import { BottomNavigation, Text } from 'react-native-paper'
+import React from 'react'
 import { HomeTab } from './tab/HomeTab'
 import { DiscoverTab } from './tab/DiscoverTab';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+const Tab = createBottomTabNavigator();
 
 export const MainScreen = () => {
-  const [index, setIndex] = useState(0)
-  const [routes] = useState([
-    { key: 'home', title: 'Home', icon: 'home-circle' },
-    { key: 'discover', title: 'Discover', icon: 'home-search' },
-  ])
-
-  const renderScene = BottomNavigation.SceneMap({
-    home: () => <HomeTab />,
-    discover: () => <DiscoverTab />,
-  })
-
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-    />
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+      <Tab.Screen name="home-tab" component={HomeTab} />
+      <Tab.Screen name="discover-tab" component={DiscoverTab} />
+      <Tab.Screen name="create-tab" component={DiscoverTab} />
+      <Tab.Screen name="chat-tab" component={DiscoverTab} />
+      <Tab.Screen name="inbox-tab" component={DiscoverTab} />
+    </Tab.Navigator>
   )
 }
 
