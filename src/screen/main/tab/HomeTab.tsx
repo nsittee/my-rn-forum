@@ -6,16 +6,18 @@ import {
   ScrollView,
   View,
 } from 'react-native'
-import { ThreadCard } from '../components/common/ThreadCard'
-import { myAxios } from '../config/axios-config'
-import appConstant from '../constant/app-constant'
-import { ISub } from '../shared/model/sub.model'
-import { IThread } from '../shared/model/thread.model'
-import { IResponseEntity } from '../shared/response.model'
+import { ThreadCard } from '../../../components/common/ThreadCard'
+import { myAxios } from '../../../config/axios-config'
+import appConstant from '../../../constant/app-constant'
+import { ISub } from '../../../shared/model/sub.model'
+import { IThread } from '../../../shared/model/thread.model'
+import { IResponseEntity } from '../../../shared/response.model'
 
-type Props = StackScreenProps<any>
+// type Props = StackScreenProps<any>
 
-export const HomePage = ({ navigation }: Props) => {
+export const HomeTab = (
+  // { navigation }: Props
+) => {
   const [threads, setThreads] = useState<IThread[]>([])
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export const HomePage = ({ navigation }: Props) => {
   }, [])
 
   const onTouchThread = (e: GestureResponderEvent, id: string) => {
-    navigation.navigate('thread', { threadId: id })
+    // navigation.navigate('thread', { threadId: id })
   }
   return (
     <View>
