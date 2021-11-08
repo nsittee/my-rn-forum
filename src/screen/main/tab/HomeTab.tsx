@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import PagerView from 'react-native-pager-view'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import PagerView, { PagerViewOnPageSelectedEvent } from 'react-native-pager-view'
 import { Text } from 'react-native-paper'
 import { ThreadCard } from '../../../components/common/ThreadCard'
 import { myAxios } from '../../../config/axios-config'
@@ -17,6 +18,7 @@ import { IResponseEntity } from '../../../shared/response.model'
 
 export const HomeTab = () => {
   const [threads, setThreads] = useState<IThread[]>([])
+  const [currentTab, setCurrentTab] = useState(0)
   const ref = useRef<PagerView>(null);
 
   useEffect(() => {
@@ -32,18 +34,26 @@ export const HomeTab = () => {
   }
 
   const setPage = useCallback((page: number) => ref.current?.setPage(page), [])
+  const onPagerViewScroll = (e: PagerViewOnPageSelectedEvent) => setCurrentTab(e.nativeEvent.position)
 
   return (
     <>
-      <View>
-        <Button title="home" onPress={() => setPage(0)}>
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.button}
+          disabled={currentTab === 0}
+          onPress={() => setPage(0)}>
           <Text>Home</Text>
-        </Button>
-        <Button title="popular" onPress={() => setPage(1)}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          disabled={currentTab === 1}
+          onPress={() => setPage(1)}>
           <Text>Popular</Text>
-        </Button>
+        </TouchableOpacity>
       </View>
       <PagerView
+        onPageSelected={onPagerViewScroll}
         ref={ref}
         style={styles.pagerView}
         showPageIndicator
@@ -68,8 +78,23 @@ export const HomeTab = () => {
     </>
   )
 }
+
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "lightgray",
+    // alignSelf: "flex-start",
+    // marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "50%",
+    textAlign: "center",
+  },
   pagerView: {
     flex: 1,
   },
-});
+})
