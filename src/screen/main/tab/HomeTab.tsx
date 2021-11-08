@@ -1,11 +1,13 @@
-import { StackScreenProps } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import {
   Button,
   GestureResponderEvent,
   ScrollView,
+  StyleSheet,
   View,
 } from 'react-native'
+import PagerView from 'react-native-pager-view'
+import { Text } from 'react-native-paper'
 import { ThreadCard } from '../../../components/common/ThreadCard'
 import { myAxios } from '../../../config/axios-config'
 import appConstant from '../../../constant/app-constant'
@@ -32,18 +34,34 @@ export const HomeTab = (
     // navigation.navigate('thread', { threadId: id })
   }
   return (
-    <View>
-      <ScrollView>
-        {
-          threads.map(thread => {
-            return <ThreadCard key={thread._id} thread={thread} onTouchThread={(e: any) => onTouchThread(e, thread._id!!)} />
-          })
-        }
-      </ScrollView>
-      {/* <Button
-        title="Go to Profile"
-        onPress={() => navigation.navigate('Profile')}
-      /> */}
-    </View>
+    <PagerView
+      style={styles.pagerView}
+      initialPage={0}
+      scrollEnabled
+      showPageIndicator
+    >
+      <View key="home" collapsable>
+        <ScrollView>
+          {
+            threads.map(thread => {
+              return <ThreadCard
+                key={thread._id}
+                thread={thread}
+                onTouchThread={(e: GestureResponderEvent) => onTouchThread(e, thread._id!!)}
+              />
+            })
+          }
+        </ScrollView>
+      </View>
+      <View key="popular">
+        <Text>Popular</Text>
+      </View>
+    </PagerView>
+
   )
 }
+const styles = StyleSheet.create({
+  pagerView: {
+    flex: 1,
+  },
+});
