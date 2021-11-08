@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
   surface: {
     elevation: 3,
     margin: 8,
+    marginTop: 0
   },
 })

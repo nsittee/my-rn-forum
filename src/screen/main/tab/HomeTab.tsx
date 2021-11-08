@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Button,
   GestureResponderEvent,
@@ -15,10 +15,9 @@ import { ISub } from '../../../shared/model/sub.model'
 import { IThread } from '../../../shared/model/thread.model'
 import { IResponseEntity } from '../../../shared/response.model'
 
-// type Props = StackScreenProps<any>
-
 export const HomeTab = () => {
   const [threads, setThreads] = useState<IThread[]>([])
+  const ref = useRef<PagerView>(null);
 
   useEffect(() => {
     myAxios.get<IResponseEntity<ISub>>(`${appConstant.URL}/api/subs`).then(resp => {
@@ -32,18 +31,20 @@ export const HomeTab = () => {
     // navigation.navigate('thread', { threadId: id })
   }
 
+  const setPage = useCallback((page: number) => ref.current?.setPage(page), [])
 
   return (
     <>
       <View>
-        <Button title="home" onPress={() => { }}>
+        <Button title="home" onPress={() => setPage(0)}>
           <Text>Home</Text>
         </Button>
-        <Button title="popular" onPress={() => { }}>
+        <Button title="popular" onPress={() => setPage(1)}>
           <Text>Popular</Text>
         </Button>
       </View>
       <PagerView
+        ref={ref}
         style={styles.pagerView}
         showPageIndicator
         initialPage={0}>
