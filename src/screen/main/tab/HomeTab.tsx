@@ -17,9 +17,7 @@ import { IResponseEntity } from '../../../shared/response.model'
 
 // type Props = StackScreenProps<any>
 
-export const HomeTab = (
-  // { navigation }: Props
-) => {
+export const HomeTab = () => {
   const [threads, setThreads] = useState<IThread[]>([])
 
   useEffect(() => {
@@ -33,31 +31,40 @@ export const HomeTab = (
   const onTouchThread = (e: GestureResponderEvent, id: string) => {
     // navigation.navigate('thread', { threadId: id })
   }
-  return (
-    <PagerView
-      style={styles.pagerView}
-      initialPage={0}
-      scrollEnabled
-      showPageIndicator
-    >
-      <View key="home" collapsable>
-        <ScrollView>
-          {
-            threads.map(thread => {
-              return <ThreadCard
-                key={thread._id}
-                thread={thread}
-                onTouchThread={(e: GestureResponderEvent) => onTouchThread(e, thread._id!!)}
-              />
-            })
-          }
-        </ScrollView>
-      </View>
-      <View key="popular">
-        <Text>Popular</Text>
-      </View>
-    </PagerView>
 
+
+  return (
+    <>
+      <View>
+        <Button title="home" onPress={() => { }}>
+          <Text>Home</Text>
+        </Button>
+        <Button title="popular" onPress={() => { }}>
+          <Text>Popular</Text>
+        </Button>
+      </View>
+      <PagerView
+        style={styles.pagerView}
+        showPageIndicator
+        initialPage={0}>
+        <View key="home">
+          <ScrollView>
+            {
+              threads.map(thread => {
+                return <ThreadCard
+                  key={thread._id}
+                  thread={thread}
+                  onTouchThread={(e: GestureResponderEvent) => onTouchThread(e, thread._id!!)}
+                />
+              })
+            }
+          </ScrollView>
+        </View>
+        <View key="popular">
+          <Text>Popular</Text>
+        </View>
+      </PagerView>
+    </>
   )
 }
 const styles = StyleSheet.create({
