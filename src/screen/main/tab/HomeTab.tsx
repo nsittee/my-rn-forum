@@ -40,16 +40,20 @@ export const HomeTab = () => {
     <>
       <View style={styles.row}>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, {
+            borderBottomColor: currentTab === 0 ? "lightblue" : "white",
+          }]}
           disabled={currentTab === 0}
           onPress={() => setPage(0)}>
-          <Text>Home</Text>
+          <Text style={{ textAlign: "center" }} >Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, {
+            borderBottomColor: currentTab === 1 ? "lightblue" : "white"
+          }]}
           disabled={currentTab === 1}
           onPress={() => setPage(1)}>
-          <Text>Popular</Text>
+          <Text style={{ textAlign: "center" }}>Popular</Text>
         </TouchableOpacity>
       </View>
       <PagerView
@@ -87,12 +91,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    backgroundColor: "lightgray",
-    // alignSelf: "flex-start",
-    // marginHorizontal: "1%",
+    borderBottomWidth: 4,
     marginBottom: 6,
     minWidth: "50%",
-    textAlign: "center",
+    // textAlign: "center",
   },
   pagerView: {
     flex: 1,
