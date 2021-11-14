@@ -8,18 +8,24 @@ import {
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import PagerView, { PagerViewOnPageSelectedEvent } from 'react-native-pager-view'
-import { Text } from 'react-native-paper'
+import { Searchbar, Text, IconButton } from 'react-native-paper'
 import { ThreadCard } from '../../../components/common/ThreadCard'
 import { myAxios } from '../../../config/axios-config'
 import appConstant from '../../../constant/app-constant'
 import { ISub } from '../../../shared/model/sub.model'
 import { IThread } from '../../../shared/model/thread.model'
 import { IResponseEntity } from '../../../shared/response.model'
+import { Dimensions } from 'react-native'
+
+const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 
 export const HomeTab = () => {
+  const [search, setSearch] = useState("")
   const [threads, setThreads] = useState<IThread[]>([])
   const [currentTab, setCurrentTab] = useState(0)
   const ref = useRef<PagerView>(null);
+
 
   useEffect(() => {
     myAxios.get<IResponseEntity<ISub>>(`${appConstant.URL}/api/subs`).then(resp => {
@@ -38,6 +44,15 @@ export const HomeTab = () => {
 
   return (
     <>
+      <View style={styles.homeTabHeader}>
+        <IconButton style={{ width: windowWidth * 0.1 }} icon="account" />
+        <Searchbar style={{ width: windowWidth * 0.8, height: 40 }}
+          placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.nativeEvent.text)}>
+        </Searchbar>
+        <IconButton style={{ width: windowWidth * 0.1 }} icon="bitcoin" color="gold" />
+      </View>
       <View style={styles.row}>
         <TouchableOpacity
           style={[styles.button, {
@@ -87,14 +102,20 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
   },
+  homeTabHeader: {
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "white",
+    paddingTop: 10,
+  },
   button: {
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    borderBottomWidth: 4,
+    borderBottomWidth: 3,
+    backgroundColor: "white",
     marginBottom: 6,
     minWidth: "50%",
-    // textAlign: "center",
   },
   pagerView: {
     flex: 1,
